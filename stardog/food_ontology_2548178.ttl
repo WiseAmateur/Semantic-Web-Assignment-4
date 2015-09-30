@@ -1,0 +1,247 @@
+@prefix : <http://www.semanticweb.org/daan/ontologies/food#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/daan/ontologies/food> .
+
+<http://www.semanticweb.org/daan/ontologies/food> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#contains
+
+:contains rdf:type owl:ObjectProperty ,
+                   owl:TransitiveProperty .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#inState
+
+:inState rdf:type owl:FunctionalProperty ,
+                  owl:ObjectProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Drink
+
+:Drink rdf:type owl:Class ;
+       
+       owl:equivalentClass [ rdf:type owl:Class ;
+                             owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :contains ;
+                                                    owl:someValuesFrom :Ingredient
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :inState ;
+                                                    owl:hasValue :Liquid
+                                                  ]
+                                                )
+                           ] ;
+       
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :inState ;
+                         owl:onClass :Phase ;
+                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                       ] .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Food
+
+:Food rdf:type owl:Class ;
+      
+      owl:equivalentClass [ rdf:type owl:Class ;
+                            owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :contains ;
+                                                   owl:someValuesFrom :Ingredient
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :inState ;
+                                                   owl:hasValue :Solid
+                                                 ]
+                                               )
+                          ] ;
+      
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :inState ;
+                        owl:onClass :Phase ;
+                        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                      ] .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Ingredient
+
+:Ingredient rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Meal
+
+:Meal rdf:type owl:Class ;
+      
+      owl:equivalentClass [ rdf:type owl:Class ;
+                            owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :contains ;
+                                                   owl:someValuesFrom :Drink
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :contains ;
+                                                   owl:someValuesFrom :Food
+                                                 ]
+                                               )
+                          ] .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Phase
+
+:Phase rdf:type owl:Class .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Bread
+
+:Bread rdf:type owl:NamedIndividual ;
+       
+       :contains :Grain ;
+       
+       :inState :Solid .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Breakfast
+
+:Breakfast rdf:type :Meal ,
+                    owl:NamedIndividual ;
+           
+           :contains :Cornflakes ,
+                     :Orange_Juice .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Cornflakes
+
+:Cornflakes rdf:type :Food ,
+                     owl:NamedIndividual ;
+            
+            :contains :Grain ;
+            
+            :inState :Solid ;
+            
+            :contains :Sugar .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Grain
+
+:Grain rdf:type :Ingredient ,
+                owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Lemonade
+
+:Lemonade rdf:type owl:NamedIndividual ;
+          
+          :inState :Liquid ;
+          
+          :contains :Sugar ,
+                    :Water .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Liquid
+
+:Liquid rdf:type :Phase ,
+                 owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Lunch
+
+:Lunch rdf:type owl:NamedIndividual ;
+       
+       :contains :Bread ,
+                 :Lemonade .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Orange
+
+:Orange rdf:type :Ingredient ,
+                 owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Orange_Juice
+
+:Orange_Juice rdf:type :Drink ,
+                       owl:NamedIndividual ;
+              
+              :inState :Liquid ;
+              
+              :contains :Orange .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Solid
+
+:Solid rdf:type :Phase ,
+                owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Sugar
+
+:Sugar rdf:type :Ingredient ,
+                owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Unknown
+
+:Unknown rdf:type owl:NamedIndividual ;
+         
+         :contains :Bread ,
+                   :Lemonade ,
+                   :Liquid .
+
+
+
+###  http://www.semanticweb.org/daan/ontologies/food#Water
+
+:Water rdf:type :Ingredient ,
+                owl:NamedIndividual .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+

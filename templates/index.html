@@ -1,0 +1,72 @@
+<!--
+ Semantic Web assignment 4
+ Name: Daan Siepelinga
+ Student id: 2584178
+ Date: 30-09-2015
+ 
+ This file contains the html structure of the application with the explanation
+ of how it works and the settings and buttons that start the application.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Food Ontology</title>
+        
+        <link rel='stylesheet' type='text/css' href='{{ url_for("static", filename="css/main.css") }}'>
+        
+        <script src='{{ url_for("static", filename="js/jquery-1.11.0.min.js") }}' type='text/javascript'></script>
+		<script src='{{ url_for("static", filename="js/assignment4.js") }}' type='text/javascript'></script>
+    </head>
+    <body>
+        <!-- Explanation row -->
+        <div class="first_row">
+            <div class="container">
+                <h1>Food Ontology Viewer</h1>
+                <p>
+                    On this website you can view most of the content of my food ontology. This ontology
+                    consists of meals, which contain food(s) and drink(s) that contain ingredient(s) and are
+                    respectively in state solid and liquid (purely used to distinct them, unimportant besides that).
+                </p>
+                <p>
+                    This content can be viewed in 2 different views, the normal view and the hierarchic view.
+                    In the normal view all the top content (meals, foods and drinks) with their contains relation(s) is queried from the
+                    database and shown in a table. In the hierarchic view only the top content (meals) is queried
+                    from the database, and shown with a button that does another query a level down (to foods/drinks)
+                    which goes on until the lowest level (ingredients).
+                </p>
+                <p>
+                    Both views can be viewed with or without inferencing. With inferencing more results are shown,
+                    as more entities are inferenced to be meals/drinks/foods and meals also contain the
+                    ingredients of their foods/drinks now because of the transitive nature of the contains property.
+                </p>
+            </div>
+        </div>
+        <!-- Settings and results row -->
+        <div class="second_row">
+            <div class="container">
+                <h2>Settings</h2>
+                <ul id='settings_container'>
+                    <li>
+                        <div id='view_buttons_container'>
+                            <input class='view_button active' type='button' value='Normal View' /><!--
+                            --><input class='view_button' type='button' value='Hierarchy View' />
+                        </div>
+                    </li>
+                    <li>
+                        <input id='inferencing_checkbox' type='checkbox' />
+                        Inferencing
+                    </li>
+                    <li>
+                        <input id='load_meals' type='button' value='Get food list' />
+                    </li>
+                </ul>
+                <h2>Results</h2>
+                <div id='results'>
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

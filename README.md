@@ -22,4 +22,4 @@ Once everything is ready:
 * start your Stardog server with `stardog-admin server start --disable-security`,
 * run `python assignment4.py`.
 
-The tutorial is then running at <http://localhost:4000> .
+The application is then running at <http://localhost:4000> .
